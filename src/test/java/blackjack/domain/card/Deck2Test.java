@@ -1,5 +1,7 @@
 package blackjack.domain.card;
 
+
+
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
@@ -7,12 +9,12 @@ import java.util.List;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-class DeckTest {
+class Deck2Test {
 
     @DisplayName("빈덱에서 카드를 뽑을 수 없다.")
     @Test
     void validateEmpty() {
-        Deck deck = new Deck(List.of());
+        Deck2 deck = new Deck2(List.of());
 
         assertThatThrownBy(deck::pick)
                 .isInstanceOf(IllegalStateException.class)
@@ -24,7 +26,7 @@ class DeckTest {
     void validateDuplicate() {
         // given
         Card expected = Card.of(CardNumber.TWO, CardShape.CLOVER);
-        Deck deck = new Deck(List.of(expected));
+        Deck2 deck = new Deck2(List.of(expected));
         // when
         Card card = deck.pick();
 
@@ -32,11 +34,11 @@ class DeckTest {
         assertThat(card).isEqualTo(expected);
     }
 
-    @DisplayName("ArrayList 성능테스트")
+    @DisplayName("Deque 성능테스트")
     @Test
     void arrayList() {
         // given
-        Deck deck = Deck.create();
+        Deck2 deck = Deck2.create();
 
         // when
         final long before = System.currentTimeMillis();
@@ -44,6 +46,7 @@ class DeckTest {
         for (int i = 0; i < 1000_000; i++) {
             deck.pick();
         }
-        System.out.printf("%d", System.currentTimeMillis() - before);
+        System.out.println(System.currentTimeMillis() - before);
     }
 }
+

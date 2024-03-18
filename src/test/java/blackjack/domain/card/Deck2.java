@@ -1,23 +1,24 @@
 package blackjack.domain.card;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.Deque;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class Deck {
+public class Deck2 {
 
     private static final List<Card> CACHED_CARDS = cacheCards();
 
-    private final List<Card> cards;
+    private final Deque<Card> cards;
 
-    public Deck(List<Card> cards) {
-        this.cards = new ArrayList<>(cards);
+    public Deck2(List<Card> cards) {
+        this.cards = new LinkedList<>(cards);
     }
 
-    public static Deck create() {
-        return new Deck(CACHED_CARDS);
+    public static Deck2 create() {
+        return new Deck2(CACHED_CARDS);
     }
 
     private static List<Card> cacheCards() {
@@ -41,7 +42,7 @@ public class Deck {
     public Card pick() {
         validateEmpty();
 
-        return cards.remove(cards.size() - 1);
+        return cards.pop();
     }
 
     private void validateEmpty() {
